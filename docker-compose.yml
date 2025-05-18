@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    environment:
+      DB_SQLITE_FILE: "/data/database.sqlite"
+      TZ: "America/New_York"
+    ports:
+      - "81:81"   # Interfaz web de Nginx Proxy Manager
+      - "443:443" # HTTPS
+      - "80:80"   # HTTP
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - chatbot-network
+
+  app1:
+    image: app1:latest  # Puedes reemplazar por tu app real
+    container_name: app1
+    restart: unless-stopped
+    networks:
+      - chatbot-network
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+
+networks:
+  chatbot-network:
+    driver: bridge
+
+
