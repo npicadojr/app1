@@ -1,0 +1,9 @@
+python-dotenv
+flask
+requests
+azure-ai-inference
+azure-core
+gunicorn
+sqlalchemy
+sqlalchemy.orm
+gunicorn
